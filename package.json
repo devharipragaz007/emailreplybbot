@@ -5,7 +5,7 @@
   "proxy": "https://stressfreereply.netlify.app:5000",
   "private": true,
   "scripts": {
-    "run-script" : "react-scripts",
+    "run-script": "react-scripts",
     "start": "concurrently \"npm run run-script\" \" cd nodemailer &&  npm run dev\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
