@@ -2,11 +2,10 @@
   "name": "mailreplybot",
   "version": "0.1.0",
   "main": "App.js",
-  "proxy": "https://stressfreereply.netlify.app:5000",
   "private": true,
   "scripts": {
-    "run-script": "react-scripts",
-    "start": "concurrently \"npm run run-script\" \" cd nodemailer &&  npm run dev\"",
+    "run-script": "react-scripts start",
+    "start": "concurrently \"cd mailsender &&  npm run dev\" \" npm run run-script \"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

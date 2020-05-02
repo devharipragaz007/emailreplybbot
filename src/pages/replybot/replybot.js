@@ -55,7 +55,7 @@ class Replybot extends Component {
     handleSubmit = () => {
         var formData = this.state.formData;
 
-        axios.get('/replyall', {
+        axios.get( Api.api + '/replyall', {
             params : formData
         })
         .then(response => {
