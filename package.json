@@ -5,7 +5,8 @@
   "proxy": "https://stressfreereply.netlify.app:5000",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "run-script" : "react-scripts",
+    "start": "concurrently \"npm run run-script\" \" cd nodemailer &&  npm run dev\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
