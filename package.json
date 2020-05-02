@@ -2,7 +2,7 @@
   "name": "mailreplybot",
   "version": "0.1.0",
   "main": "App.js",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://stressfreereply.netlify.app:5000",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
