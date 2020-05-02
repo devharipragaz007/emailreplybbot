@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/mailsender/node_modules
 /.pnp
 .pnp.js
 
