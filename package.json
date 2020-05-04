@@ -4,8 +4,7 @@
   "main": "App.js",
   "private": true,
   "scripts": {
-    "run-script": "react-scripts start",
-    "start": "concurrently \"cd mailsender &&  npm run dev\" \" npm run run-script \"",
+    "start": "concurrently \"react-scripts start\" \"cd mailsender && npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
