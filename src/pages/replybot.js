@@ -55,8 +55,12 @@ class Replybot extends Component {
 
     handleSubmit = () => {
         var formData = this.state.formData;
-
+        var headers = {
+            'authorization': localStorage.getItem("authorization")
+        }
+        console.log(headers);
         axios.get( Api.api + '/mailsender/replyall', {
+            headers : headers,
             params : formData
         })
         .then(response => {

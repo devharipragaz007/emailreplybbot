@@ -12,6 +12,9 @@
 # production
 /build
 
+# environment
+/src/api.json
+
 # misc
 .DS_Store
 .env.local
