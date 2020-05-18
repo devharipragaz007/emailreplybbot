@@ -25,7 +25,7 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import Collapse from '@material-ui/core/Collapse';
 import { Link , BrowserRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UserImage from '../../images/user.png';
+import UserImage from '../images/user.png';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
@@ -97,7 +97,6 @@ const StyledListText = styled(ListItemText)`
 `;
 
 function ResponsiveDrawer(props) {
-    console.log(props.component)
     const menuList = {
         module: '116',
         icon: 'faEdit',
@@ -214,6 +213,18 @@ function ResponsiveDrawer(props) {
 
     // console.log(menus)
 
+    const logout = () => {
+        // this.setState({
+        //     ...this.state,
+        //     redirect : '/'
+        // })
+        localStorage.setItem("name", '');
+        localStorage.setItem("email", '');
+        localStorage.setItem("phone", '');
+        localStorage.setItem("token", '');
+        localStorage.setItem("logged", false);
+    }
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -221,10 +232,10 @@ function ResponsiveDrawer(props) {
     const drawer = (
         <div>
         <div className="batch-holder">
-            <h3>Project Name</h3>
+            <h3>Crazy Things</h3>
             <img src={UserImage} className="logo" alt="Company Logo" />
-            <h4>User Name</h4>
-            <Button variant="outlined" color="secondary" size="small">Logout</Button>
+            <h4>{ localStorage.getItem("name") }</h4>
+            <Button variant="outlined" color="secondary" size="small" onClick={ () => logout() }>Logout</Button>
         </div>
         <Divider />
         <StyledList>

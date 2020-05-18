@@ -19,6 +19,7 @@
     "@material-ui/lab": "^4.0.0-alpha.51",
     "@material-ui/pickers": "^3.2.10",
     "axios": "^0.19.2",
+    "axios-progress-bar": "^1.2.0",
     "bootstrap": "^4.4.1",
     "cra-template": "1.0.3",
     "date-fns": "^2.12.0",

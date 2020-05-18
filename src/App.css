@@ -3,17 +3,41 @@
 }
 
 html {
-  background-color: gray;
+  background-color: white;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  /* height: 100%; */
+}
+
+#sign-up {
+  margin-top: 13vh !important;
+}
+
+#nprogress .bar {
+  background: red !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px red, 0 0 5px red !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: red !important;
+  border-left-color: red !important;
 }
 
 .App-logo {
   height: 40vmin;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
 
 .App-header {
@@ -107,9 +131,99 @@ html {
   right: 10px;
 }
 
+.login-page {
+  /* Location of the image */
+  /* background-image: url(images/background-photo.jpg); */
+
+
+
+  /* Set a background color that will be displayed
+     while the background image is loading */
+
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  background-color: white;
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.login {
+  background-image: url('./images/login.svg');
+}
+
+.confirmation {
+  background-position: center center;
+  background-size: cover;
+
+  background-attachment: fixed;
+  background-image: url('./images/authentication.svg');
+}
+
+.resetpass {
+  /* background-position: center center; */
+  background-size: auto;
+
+  background-image: url('./images/forgot_password.svg');
+}
+
+.feild-container {
+  background-color: white;
+  margin-left: 50% !important;
+  margin-top: 20vh !important;
+  border: 2px solid royalblue;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 100% !important;
+}
+
+@media only screen and (max-width : 1200px) {
+
+  .login-page {
+    left: 50%;
+    margin-left: -450px;
+    /*  50% */
+  }
+
+
+  .feild-container {
+    margin-left: -117px !important;
+  }
+
+}
+
+@media only screen and (max-width : 997px) {
+
+  .feild-container {
+    margin-left: -117px !important;
+  }
+
+
+  .confirmation {
+    background-image: url('./images/authentication-mobile.jpg');
+  }
+
+
+}
+
 @media only screen and (max-width : 599px) {
 
   .main-conntaer {
     margin-left: 30px;
   }
+
+
+  .feild-container {
+    width: 28%;
+    margin-left: -117px !important;
+  }
+
 }

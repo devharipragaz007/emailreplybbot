@@ -1,19 +1,19 @@
 import React, {
     Component
 } from 'react';
-import { FormControl, Input, InputLabel, FormHelperText, TextareaAutosize, Button ,Grid, TextField   } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import DatePicker from "react-datepicker";
+import {  Button ,Grid, TextField   } from '@material-ui/core';
 import "react-datepicker/dist/react-datepicker.css";
-import Api from '../../api.json'
+import Api from '../api.json'
 import DateFnsUtils from '@date-io/date-fns';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
   
   
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +23,7 @@ class Replybot extends Component {
         super(props);
         this.state = {
             alert : null,
+            showpassword : false,
             formData : {
                 email :  '',
                 password :  '',
@@ -55,7 +56,7 @@ class Replybot extends Component {
     handleSubmit = () => {
         var formData = this.state.formData;
 
-        axios.get( Api.api + '/replyall', {
+        axios.get( Api.api + '/mailsender/replyall', {
             params : formData
         })
         .then(response => {
@@ -111,48 +112,70 @@ class Replybot extends Component {
         }
     }
 
+    toggglePassword = () => {
+        this.setState({
+            ...this.state,
+            showpassword : !this.state.showpassword
+        })
+    }
+
     render() {
         return ( 
             // <FormControl>
             <>
                 <Grid container spacing={3}>
-                    <Grid item md>
+                    <Grid item md={6} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="email">Username(email)</InputLabel> */}
-                        <TextField id="email" name="email" variant="outlined" label="Username (E-Mail)" fullWidth onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.email === ""} height="25%" value={this.state.formData.email} type="email" helperText={ this.state.formData.email === "" ? "E-Mail is Required.." : ''} autoFocus />
+                        <TextField size="small" id="email" name="email" variant="outlined" label="Username (E-Mail)" fullWidth onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.email === ""} height="25%" value={this.state.formData.email} type="email" helperText={ this.state.formData.email === "" ? "E-Mail is Required.." : ''} autoFocus />
                     </Grid>
 
-                    <Grid item md>
-                        {/* <InputLabel htmlFor="password">Password</InputLabel> */}
-                        <TextField id="password" type="password" name="password" onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Password"  helperText={ this.state.formData.password === "" ? "Password is Required.." : ''}  required={true} error={this.state.formData.password === ""} value={this.state.formData.password}  />
+                    <Grid item md={6} sm={6} xs={12} >
+                        <TextField
+                            size="small" id="password" type={ this.state.showpassword ? 'text' : 'password' } name="password" onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Password"  helperText={ this.state.formData.password === "" ? "Password is Required.." : ''}  required={true} error={this.state.formData.password === ""} value={this.state.formData.password} 
+                            InputProps={{
+                            endAdornment : (
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => this.toggglePassword() }
+                                >
+                                {this.state.showpassword === true ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                            )
+                            }}
+                        />
                     </Grid>
                 </Grid>
+                <br/>
 
                 <Grid container spacing={3}>
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="port">Port</InputLabel> */}
-                        <TextField id="host" name="host"  onChange={(event) => this.handleChange(event) } fullWidth required={true} variant="outlined" label="Incoming Host" error={this.state.formData.host === ""} value={this.state.formData.host}  helperText={ this.state.formData.host === "" ? "Incoming Host is Required.." : ''}  />
+                        <TextField size="small" id="host" name="host"  onChange={(event) => this.handleChange(event) } fullWidth required={true} variant="outlined" label="Incoming Host" error={this.state.formData.host === ""} value={this.state.formData.host}  helperText={ this.state.formData.host === "" ? "Incoming Host is Required.." : ''}  />
                     </Grid>
                     
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="port">Port</InputLabel> */}
-                        <TextField id="outgoing_host" name="outgoing_host"  onChange={(event) => this.handleChange(event) } fullWidth required={true} variant="outlined" label="Outgoing Host" error={this.state.formData.outgoing_host === ""} value={this.state.formData.outgoing_host}  helperText={ this.state.formData.outgoing_host === "" ? "Outgoing Host is Required.." : ''}  />
+                        <TextField size="small" id="outgoing_host" name="outgoing_host"  onChange={(event) => this.handleChange(event) } fullWidth required={true} variant="outlined" label="Outgoing Host" error={this.state.formData.outgoing_host === ""} value={this.state.formData.outgoing_host}  helperText={ this.state.formData.outgoing_host === "" ? "Outgoing Host is Required.." : ''}  />
                     </Grid>
 
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="host">Host</InputLabel> */}
-                        <TextField id="port" name="port" fullWidth variant="outlined" label="Incoming Port"  onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.port === ""} value={this.state.formData.port}  helperText={ this.state.formData.port === "" ? "Incoming Port is Required.." : ''} />
+                        <TextField size="small" id="port" name="port" fullWidth variant="outlined" label="Incoming Port"  onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.port === ""} value={this.state.formData.port}  helperText={ this.state.formData.port === "" ? "Incoming Port is Required.." : ''} />
                     </Grid>
 
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="host">Host</InputLabel> */}
-                        <TextField id="outgoing_port" name="outgoing_port" fullWidth variant="outlined" label="Outgoing Port"  onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.outgoing_port === ""} value={this.state.formData.outgoing_port}  helperText={ this.state.formData.outgoing_port === "" ? "Outgoing Port is Required.." : ''}  />
+                        <TextField size="small" id="outgoing_port" name="outgoing_port" fullWidth variant="outlined" label="Outgoing Port"  onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.outgoing_port === ""} value={this.state.formData.outgoing_port}  helperText={ this.state.formData.outgoing_port === "" ? "Outgoing Port is Required.." : ''}  />
                     </Grid>
                 </Grid>
+                <br/>
 
                 <Grid container spacing={3}>
-                    <Grid item md>
+                    <Grid item md={12} sm={12} xs={12} >
                         {/* <InputLabel htmlFor="msg">Reply</InputLabel> */}
-                        <TextField
+                        <TextField size="small"
                             id="msg"
                             name="msg"
                             onChange={(event) => this.handleChange(event) } 
@@ -168,11 +191,14 @@ class Replybot extends Component {
                             />
                     </Grid>
                 </Grid>
+                <br/>
 
                 <Grid container spacing={3}>
-                    <Grid item md>
+                    <Grid item md={3} sm={3} xs={12}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
+                            size="small"
+                            fullWidth
                             margin="normal"
                             required={false}
                             id="fromDate"
@@ -186,14 +212,14 @@ class Replybot extends Component {
                                 'aria-label': 'change date',
                             }}/>
                         </MuiPickersUtilsProvider>
-                        {/* <InputLabel htmlFor="fromDate">From Date</InputLabel>
-                        <DatePicker selected={this.state.formData.fromDate} showPopperArrow={false} fullWidth  maxDate={ this.state.formData.toDate } dateFormat="dd/MM/yyyy" className="col-md-12" onChange={ (date) => this.setDate(date,'fromDate') } id="fromDate" /> */}
                     </Grid>
 
-                    <Grid item md>
+                    <Grid item md={3} sm={3} xs={12} >
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             margin="normal"
+                            size="small"
+                            fullWidth
                             required={false}
                             id="toDate"
                             name="toDate"
@@ -210,17 +236,18 @@ class Replybot extends Component {
                         </MuiPickersUtilsProvider>
                     </Grid>
 
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         <br/>
-                        <TextField id="count" name="count" onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Count" value={this.state.formData.count} />
+                        <TextField size="small" style={{ marginTop : '-5px' }} id="count" name="count" onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Count" value={this.state.formData.count} />
                     </Grid>
 
 
-                    <Grid item md>
+                    <Grid item md={3} sm={6} xs={12} >
                         <br/>
-                        <TextField id="interval" name="interval" onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Interval" value={this.state.formData.interval} />
+                        <TextField size="small" id="interval" name="interval" style={{ marginTop : '-5px' }}  onChange={(event) => this.handleChange(event) } fullWidth  variant="outlined" label="Interval" value={this.state.formData.interval} />
                     </Grid>
                 </Grid>
+                <br/>
                 <br/>
                 <Grid container  direction="row" justify="flex-end" alignItems="center">
                     <Grid item md={10}>
