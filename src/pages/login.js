@@ -340,7 +340,7 @@ class Login extends Component {
                         direction="column"
                         alignItems="center"
                         justify="center"
-                        style={{ maxHeight: '80vh' }}
+                        style={{ maxHeight: '85vh' }}
                         >
                         <Grid item md={10} sm={10} xs={10}>
                             <h3>Sign Up</h3>
@@ -424,7 +424,7 @@ class Login extends Component {
                             </Grid>
 
                             <Grid item md={10} sm={10} xs={11} >
-                                <TextField variant="outlined" label="Confirm Password" type={ this.state.showconfpassword ? 'text' : 'password' } required={true} error={ this.state.formData.confpassword !== this.state.formData.password } fullWidth value={ this.state.formData.confpassword } id="confpassword" onChange={ (ev) => this.handleChange(ev) } size="small" helperText={ this.state.formData.confpassword !== this.state.formData.password ? "Passwords not matching.." : ''}   InputProps={{
+                                <TextField variant="outlined" label="Confirm Password" type={ this.state.showconfpassword ? 'text' : 'password' } required={true} error={ this.state.formData.confpassword === "" || this.state.formData.confpassword !== this.state.formData.password } fullWidth value={ this.state.formData.confpassword } id="confpassword" onChange={ (ev) => this.handleChange(ev) } size="small" helperText={ this.state.formData.confpassword !== this.state.formData.password ? "Passwords not matching.." : ''}   InputProps={{
                                     startAdornment : (
                                     <InputAdornment>
                                         <IconButton
