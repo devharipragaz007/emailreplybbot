@@ -320,7 +320,7 @@ function ResponsiveDrawer(props) {
                 <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-                <FontAwesomeIcon icon="mail-bulk" size="2x" /> { '  ' }
+                {/* <FontAwesomeIcon icon="mail-bulk" size="2x" /> { '  ' } */}
                 Email Reply Bot
             </Typography>
             </Toolbar>

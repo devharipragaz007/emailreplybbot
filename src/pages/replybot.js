@@ -198,7 +198,7 @@ class Replybot extends Component {
                 <br/>
 
                 <Grid container spacing={3}>
-                    <Grid item md={3} sm={3} xs={12}>
+                    <Grid item md={3} sm={6} xs={12}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             size="small"
@@ -218,7 +218,7 @@ class Replybot extends Component {
                         </MuiPickersUtilsProvider>
                     </Grid>
 
-                    <Grid item md={3} sm={3} xs={12} >
+                    <Grid item md={3} sm={6} xs={12} >
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             margin="normal"
