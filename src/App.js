@@ -57,18 +57,8 @@ class App extends Component {
         <div className="main-conntaer">
           <Router >
             <Switch>
-                <Route exact path='/'>
-                  <Login/>
-                </Route>
-
-
-                <Route path="/confirmation/:token">
-                  <Confirmation />
-                </Route>
-
-
-                <Route path="/changePass/:token">
-                  <ResetPass />
+                <Route exact>
+                  <Replybot />
                 </Route>
 
                 <Route path="/home">
