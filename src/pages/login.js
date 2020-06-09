@@ -148,6 +148,11 @@ class Login extends Component {
                         alert : <Alert  action={ <Button color="inherit" size="small"> UNDO </Button> } severity="success">{ result.data.message }</Alert>
                     })
                     setTimeout(() => { this.setState({alert : null}); }, 2000);
+                    // this.props.updateUser({
+                    //     loggedIn : true,
+                    //     username : result.data.data.email
+                    // })
+
                     localStorage.setItem("logged", true);
                     localStorage.setItem("name", result.data.data.name);
                     localStorage.setItem("email", result.data.data.email);
@@ -155,7 +160,7 @@ class Login extends Component {
                     localStorage.setItem("token", result.data.data.token);
                     this.setState({
                         ...this.state,
-                        redirect : '/'
+                        redirect : '/home'
                     })
                 }
                 else{

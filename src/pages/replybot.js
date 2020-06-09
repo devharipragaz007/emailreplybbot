@@ -6,7 +6,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import Api from '../api.json'
 import DateFnsUtils from '@date-io/date-fns';
 import Alert from '@material-ui/lab/Alert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClone } from '@fortawesome/free-solid-svg-icons'
+import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -24,6 +33,8 @@ class Replybot extends Component {
         this.state = {
             alert : null,
             showpassword : false,
+            openModal : false,
+            fullScreen : false,
             formData : {
                 email :  '',
                 password :  '',
@@ -92,6 +103,34 @@ class Replybot extends Component {
         }) 
       }
 
+      resize() {
+        let screenWidth = window.innerWidth ;
+        if (screenWidth < 760) {
+            this.setState({fullScreen : true});
+        }
+        else {
+            this.setState({fullScreen : false});
+        }
+    }
+
+    copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+        
+        this.setState({
+            ...this.state,
+            alert : <Alert  action={ <Button color="inherit" size="small"> UNDO </Button> } severity="success">Link Copied to Clipboard</Alert>
+        })
+        setTimeout(() => { this.setState({alert : null}); }, 3000);
+    };
+
+      componentDidMount = () => {
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+      }
+
+      componentWillUnmount() {
+        window.removeEventListener("resize", this.resize)
+    }
       
     setDate = (date,field) =>{
 
@@ -116,6 +155,13 @@ class Replybot extends Component {
         }
     }
 
+    handleClickOpen = () => {
+        this.setState({
+            ...this.state,
+            openModal : !this.state.openModal
+        })
+    }
+
     toggglePassword = () => {
         this.setState({
             ...this.state,
@@ -123,11 +169,72 @@ class Replybot extends Component {
         })
     }
 
+    cloneUrl() {
+        /* Get the text field */
+        var copyText = document.getElementById("url");
+        // var copyText = "https://nostressreplyapi.herokuapp.com";
+        console.log(copyText)
+        /* Select the text field */
+        // copyText.select();
+        // copyText[0].setSelectionRange(0, 99999); /*For mobile devices*/
+      
+        /* Copy the text inside the text field */
+        // copyText.execCommand("copy");
+        copyText.select();
+        document.execCommand("copy");
+      
+        /* Alert the copied text */
+        // alert("Copied the text: " + copyText.value);
+      }
+
     render() {
         return ( 
             // <FormControl>
             <>
+
+      {/* Dialog Popup */}
+            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                Pre-requisite
+            </Button>
+            <Dialog
+                fullScreen={this.state.fullScreen}
+                open={this.state.openModal}
+                onClose={this.handleClickOpen}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">{"Provide Permissions that are required"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        In order to achieve auto-reply, you have to provide some basic Permissions from your side.
+                        <ol>
+                            <li> <u>Allow Less Secure App Access</u> - This is for allowing our app access from our site. Allow this Permission from <a target="_blank" href="https://myaccount.google.com/lesssecureapps">here</a> </li>
+                            <li> <u>2-Step Verification</u> - This is for the more security to your account. Turn this on <a target="_blank" href="https://myaccount.google.com/signinoptions/two-step-verification/enroll-welcome"> here </a> </li>
+                            <li> <u>App passwords</u> - This provides the  specific passwords to each apps you are using. Turn this on  <a target="_blank" href="https://accounts.google.com/signin/v2/challenge/pwd?continue=https%3A%2F%2Fmyaccount.google.com%2Fapppasswords&service=accountsettings&osid=1&rart=ANgoxcf7saioFgxWQsaFoxhS-o04czC21FqZGIVwT2xxhS4Jol0HsqirShxOVtTooaYEm4cv3SNL7tRNa2dn6uu3w8B-_AcL3g&TL=AM3QAYZ1NU6M0HFFXGNCV1vLKtb9li_m9aePOYOFZftyYsX0EMQqczwAt_dsCVSw&flowName=GlifWebSignIn&cid=3&flowEntry=ServiceLogin"> here </a> 
+                            <ul>
+                                <b> Steps : </b>
+                                <li> Select app</li>
+                                <li> Select option Other (Custom name) </li>
+                                <li> Copy and Paste the link <FontAwesomeIcon style={{ cursor  : 'pointer' }} icon={faClone} onClick={() => this.copyToClipboard("https://nostressreplyapi.herokuapp.com")} /> </li>
+                                <li> After pasting tap Generate </li>
+                                <li> Copy the generated 16 digit password and use the password for your transaction through our platform </li>
+                            </ul>
+                             </li>
+                        </ol>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={this.handleClickOpen} color="primary" autoFocus>
+                    Done
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+        <br/>
+        <br/>
+
+      {/* Form */}
                 <Grid container spacing={3}>
+                    <input id="url" type="hidden" value="https://nostressreplyapi.herokuapp.com"></input>
                     <Grid item md={6} sm={6} xs={12} >
                         {/* <InputLabel htmlFor="email">Username(email)</InputLabel> */}
                         <TextField size="small" id="email" name="email" variant="outlined" label="Username (E-Mail)" fullWidth onChange={(event) => this.handleChange(event) } required={true} error={this.state.formData.email === ""} height="25%" value={this.state.formData.email} type="email" helperText={ this.state.formData.email === "" ? "E-Mail is Required.." : ''} autoFocus />

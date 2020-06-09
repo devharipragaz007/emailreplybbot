@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import { Redirect } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -178,6 +179,7 @@ function ResponsiveDrawer(props) {
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [ menus, setMenu] = React.useState(menuList);
+    const [ redirect, setRedirect] = React.useState(null);
 
     const handleClick = (obj) => {
     // console.log(val);
@@ -214,10 +216,6 @@ function ResponsiveDrawer(props) {
     // console.log(menus)
 
     const logout = () => {
-        // this.setState({
-        //     ...this.state,
-        //     redirect : '/'
-        // })
         localStorage.setItem("name", '');
         localStorage.setItem("email", '');
         localStorage.setItem("phone", '');
@@ -232,7 +230,7 @@ function ResponsiveDrawer(props) {
     const drawer = (
         <div>
         <div className="batch-holder">
-            <h3>Crazy Things</h3>
+            <h3>Craft Works</h3>
             <img src={UserImage} className="logo" alt="Company Logo" />
             <h4>{ localStorage.getItem("name") }</h4>
             <Button variant="outlined" color="secondary" size="small" onClick={ () => logout() }>Logout</Button>
@@ -306,63 +304,65 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                className={classes.menuButton}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-                {/* <FontAwesomeIcon icon="mail-bulk" size="2x" /> { '  ' } */}
-                Email Reply Bot
-            </Typography>
-            </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders">
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-            <Hidden smUp implementation="css">
-            <Drawer
-                container={container}
-                variant="temporary"
-                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                classes={{
-                paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-                }}
-            >
-                {drawer}
-            </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-            <Drawer
-                classes={{
-                paper: classes.drawerPaper,
-                }}
-                variant="permanent"
-                open
-            >
-                {drawer}
-            </Drawer>
-            </Hidden>
-        </nav>
-        <main className={classes.content}>
-            {/* <div className="main-conntaer">
-                { props.component }
-            </div> 
-            <h1>Hari Prakash </h1> */}
-        </main>
-        </div>
+        <>
+            <div className={classes.root}>
+            <CssBaseline />
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    className={classes.menuButton}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                    {/* <FontAwesomeIcon icon="mail-bulk" size="2x" /> { '  ' } */}
+                    Email Reply Bot
+                </Typography>
+                </Toolbar>
+            </AppBar>
+            <nav className={classes.drawer} aria-label="mailbox folders">
+                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                <Hidden smUp implementation="css">
+                <Drawer
+                    container={container}
+                    variant="temporary"
+                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    classes={{
+                    paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                <Drawer
+                    classes={{
+                    paper: classes.drawerPaper,
+                    }}
+                    variant="permanent"
+                    open
+                >
+                    {drawer}
+                </Drawer>
+                </Hidden>
+            </nav>
+            <main className={classes.content}>
+                {/* <div className="main-conntaer">
+                    { props.component }
+                </div> 
+                <h1>Hari Prakash </h1> */}
+            </main>
+            </div>
+        </>
     );
     }
 
