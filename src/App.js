@@ -32,12 +32,12 @@ class App extends Component {
   
   
   componentDidMount = () => {    
-    axios.get(Api.api +  '/checkSession').then(response => {
-      console.log(response)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    // axios.get(Api.api +  '/checkSession').then(response => {
+    //   console.log(response)
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
     this.interval = setInterval(() => this.state.logged !== localStorage.getItem("logged") ? this.setState({ logged: localStorage.getItem("logged") }) : null, 1000);
 
   }
@@ -57,11 +57,11 @@ class App extends Component {
         <div className="main-conntaer">
           <Router >
             <Switch>
-                <Route exact>
+                <Route exact path="/">
                   <Replybot />
                 </Route>
 
-                <Route path="/home">
+                <Route exact path="/home">
                   <Replybot />
                 </Route>
 
@@ -74,17 +74,17 @@ class App extends Component {
            <div className="main-conntaer">
             <Router >
               <Switch>
-                <Route exact>
+                <Route exact path="/">
                   <Login/>
                 </Route>
                 
 
-                <Route path="/confirmation/:token">
+                <Route exact path="/confirmation/:token">
                   <Confirmation />
                 </Route>
 
 
-                <Route path="/changePass/:token">
+                <Route exact path="/changePass/:token">
                   <ResetPass />
                 </Route>
             </Switch>

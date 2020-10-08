@@ -34,7 +34,7 @@ class Confirmation extends Component {
         console.log('hari')
         
         this.timer = setInterval(this.tick, 20);
-
+        console.log(this.token, localStorage.getItem("verifyCode"), this.token === localStorage.getItem("verifyCode"))
         if(this.token === localStorage.getItem("verifyCode"))
         {
             this.setState({
@@ -54,10 +54,10 @@ class Confirmation extends Component {
             .then(result => {
                 if(result.data.status === 'success')
                 {
-                    localStorage.setItem("logged", true)
+                    // localStorage.setItem("logged", true)
                     this.setState({
                         ...this.state,
-                        redirect : '/home'
+                        redirect : '/'
                     })
                 }
                 else{
